@@ -23,7 +23,7 @@ Supply-Chain Risk Scout is an AI-powered tool for monitoring and scoring supplie
 
 1. **Clone the repo and install dependencies:**
    ```sh
-   git clone <repo-url>
+   git clone <[repo-url](https://github.com/msalman504/Supply-Chain-Risk-Scout.git)>
    cd supply-chain-risk-scout
    python -m venv .venv
    .venv\Scripts\activate
