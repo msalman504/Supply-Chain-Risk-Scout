@@ -1,0 +1,46 @@
+# Cursor-specific rules for Supply-Chain Risk Scout
+
+## Context
+You are building a production LangGraph agent that ingests supplier lists, enriches them with external data, computes risk scores, and delivers alerts and reports.
+
+## Global Constraints
+- Always use Pydantic v2 models for all inputs/outputs.
+- Keep secrets in environment variables only (never hard-code).
+- Every LangGraph node must have a single responsibility and a unit test.
+- Prefer async calls for I/O (aiohttp, httpx).
+- Use LangSmith tracing on every chain and tool.
+
+## Code Style
+- Python 3.11+
+- Black formatting, 100-char line length.
+- Docstrings: Google style.
+- Logging: structlog, JSON to stdout.
+
+## Directory Layout
+src/
+  agents/           # LangGraph workflows
+  models/           # Pydantic schemas
+  tools/            # LangChain tools
+  services/         # External API wrappers
+  tests/            # pytest
+  web/              # FastAPI + Streamlit
+scripts/
+  dev/              # Docker compose, seed data
+
+## Environment Variables (example .env)
+OPENAI_API_KEY=sk-...
+TAVILY_API_KEY=tvly-...
+DATABASE_URL=postgresql+asyncpg://...
+REDIS_URL=redis://localhost:6379/0
+S3_BUCKET=sc-risk-reports
+LANGSMITH_API_KEY=lsv2_...
+
+## Testing
+- pytest-asyncio for async tests.
+- 90 % coverage target.
+- Use `pytest --cov=src --cov-report=html`
+
+## Deployment
+- Container: `python:3.11-slim`
+- Health endpoint: `GET /healthz`
+- CI/CD: GitHub Actions → AWS ECS Fargate Blue/Green.
